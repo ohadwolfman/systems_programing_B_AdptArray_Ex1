@@ -1,7 +1,7 @@
 #ifndef ADAPTARRAY_H
 #define ADAPTARRAY_H
 typedef struct AdptArray_* PAdptArray;
-typedef enum {FAIL = 0, SUCCESS=1} Result;
+typedef enum  {FAIL = 0, SUCCESS=1} Result;
 typedef void* PElement;
 
 typedef void(*DEL_FUNC)(PElement);

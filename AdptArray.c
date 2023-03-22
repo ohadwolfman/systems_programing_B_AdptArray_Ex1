@@ -8,7 +8,7 @@ typedef struct AdptArray_{
     DEL_FUNC delFunc;
     COPY_FUNC copyFunc;
     PRINT_FUNC prtFunc;
-}AdptArray;
+}AdptArray, *PAdptArray;
 
 PAdptArray CreateAdptArray(COPY_FUNC copyFunc_, DEL_FUNC delFunc_,PRINT_FUNC prtFunc){
     PAdptArray pArr = (PAdptArray)malloc(sizeof(AdptArray));
@@ -32,7 +32,7 @@ Result SetAdptArrayAt(PAdptArray pArr, int idx, PElement pNewElem){
         if ((newpElemArr = (PElement*)calloc((idx + 1), sizeof(PElement))) == NULL)
             return FAIL;
         memcpy(newpElemArr, pArr->pElemArr, (pArr->ArrSize) * sizeof(PElement));
-        free(pArr->pElemArr);
+        //free(pArr->pElemArr);
         pArr->pElemArr = newpElemArr;
     }
     // Delete Previous Elem
@@ -62,9 +62,9 @@ void DeleteAdptArray(PAdptArray pArr) {
 }
 
 PElement GetAdptArrayAt(PAdptArray pArr, int idx){
-    if (pArr == NULL || index < 0 || idx >= (pArr->ArrSize))
+    if (pArr == NULL || idx < 0 || idx >= (pArr->ArrSize) || pArr->pElemArr[idx]==NULL)
         return NULL;
-    return pArr->pElemArr[idx];
+    return pArr->copyFunc(pArr->pElemArr[idx]);
 }
 
 int GetAdptArraySize(PAdptArray pArr){
