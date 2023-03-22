@@ -32,7 +32,7 @@ Result SetAdptArrayAt(PAdptArray pArr, int idx, PElement pNewElem){
         if ((newpElemArr = (PElement*)calloc((idx + 1), sizeof(PElement))) == NULL)
             return FAIL;
         memcpy(newpElemArr, pArr->pElemArr, (pArr->ArrSize) * sizeof(PElement));
-        //free(pArr->pElemArr);
+        free(pArr->pElemArr);
         pArr->pElemArr = newpElemArr;
     }
     // Delete Previous Elem
